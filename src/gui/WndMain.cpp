@@ -45,6 +45,7 @@
 #include "common\Settings.hpp"
 #include "common/util/cliConfig.hpp"
 
+#include "core\kernel\support\Emu.h"
 #include "core\kernel\init\CxbxKrnl.h" // For CxbxExec
 #include "resource/ResCxbx.h"
 #include "CxbxVersion.h"
@@ -1909,8 +1910,13 @@ void WndMain::UpdateCaption()
 
 		i += sprintf(AsciiTitle + i, "%s v1.%02d (%s)", FormatTitleId(m_Xbe->m_Certificate.dwTitleId).c_str(), m_Xbe->m_Certificate.dwVersion, m_Xbe->m_szAsciiTitle);
 
+		if (g_bEmuSuspended) {
+			strcat(AsciiTitle, " (paused)");
+		}
+
 		UpdateFpsStatus();
 		UpdateLogStatus();
+
 
 	}
 
